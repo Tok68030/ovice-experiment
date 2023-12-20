@@ -1,5 +1,4 @@
-<!-- URLパラメータ引き継ぎ設定スクリプト　jQuery必須　-->
-
+// by Tok
 var prm;
 var btn_position;
 
