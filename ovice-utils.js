@@ -1,6 +1,6 @@
 // by Tok
-var prm;
-var btn_position;
+var global_prm;
+var global_btn_position = "";
 
 function retrieveGETqs() {
 
@@ -11,19 +11,21 @@ function retrieveGETqs() {
 
 }
 
-// inperit query parameter
 $(function(){
-	jQuery('a').click(function() {
-	var target_url = $(this).attr("href");
-	var str = retrieveGETqs();
-	prm = decodeURIComponent(str);
+  jQuery('a').click(function() {
+    var target_url = $(this).attr("href");
+    var str = retrieveGETqs();
+    global_prm = decodeURIComponent(str);
 
-	if (prm) {
-     if (target_url.indexOf('?') != -1) {
-         $('a').attr('href', target_url + '&' + prm + '&lp_type=' + btn_position);
-       } else {
-         $('a').attr('href', target_url + '?' + prm + '&lp_type=' + btn_position);
-       }
-  }	
- })	
+    if (global_prm) {
+      if (global_btn_position) {
+        target_url = target_url + '&lp_type=' + global_btn_position);
+      }
+      if (target_url.indexOf('?') != -1) {
+        $('a').attr('href', target_url + '&' + global_prm);
+      } else {
+        $('a').attr('href', target_url + '?' + global_prm);
+      }
+    }
+  })
 })
