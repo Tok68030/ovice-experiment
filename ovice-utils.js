@@ -6,16 +6,18 @@ function retrieveGETqs() {
 
 	var query = window.location.search.substring(1);
 	return query;
-	 /* 引数がない時は処理しない */
 	if (!query) return false;
 
 }
 
 $(function(){
-  jQuery('a').click(function() {
-    var target_url = $(this).attr("href");
     var str = retrieveGETqs();
     global_prm = decodeURIComponent(str);
+console.log(str);
+console.log(global_prm);
+
+    jQuery('a').click(function() {
+    var target_url = $(this).attr("href");
 
     if (global_prm) {
       if (global_btn_position) {
