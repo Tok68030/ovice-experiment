@@ -15,7 +15,7 @@ function retrieveGETqs() {
     global_prm = decodeURIComponent(str);
 console.log(str);
 console.log(global_prm);
-}
+})();
 
 $(function(){
     $('a').click(function() {
