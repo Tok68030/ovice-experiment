@@ -13,8 +13,6 @@ function retrieveGETqs() {
 (function(){
     var str = retrieveGETqs();
     global_prm = decodeURIComponent(str);
-console.log(str);
-console.log(global_prm);
 })();
 
 $(function(){
