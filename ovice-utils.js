@@ -10,13 +10,15 @@ function retrieveGETqs() {
 
 }
 
-$(function(){
+(function(){
     var str = retrieveGETqs();
     global_prm = decodeURIComponent(str);
 console.log(str);
 console.log(global_prm);
+}
 
-    jQuery('a').click(function() {
+$(function(){
+    $('a').click(function() {
     var target_url = $(this).attr("href");
 
     if (global_prm) {
