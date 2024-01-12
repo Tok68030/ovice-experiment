@@ -110,23 +110,24 @@ function UXcustomizeViaCountry(){
 })();
 
 $(function(){
-    $('a').click(function() {
-    var target_url = $(this).attr("href");
+  $('a').click(function() {
+  var target_url = $(this).attr("href");
 
-    if (global_prm) {
-      if (global_btn_position) {
-        target_url = target_url + '&lp_type=' + global_btn_position;
-      }
-      if (target_url.indexOf('?') != -1) {
-        $('a').attr('href', target_url + '&' + global_prm);
-      } else {
-        $('a').attr('href', target_url + '?' + global_prm);
-      }
+  if (global_prm) {
+    if (global_btn_position) {
+      target_url = target_url + '&lp_type=' + global_btn_position;
     }
+    if (target_url.indexOf('?') != -1) {
+      $('a').attr('href', target_url + '&' + global_prm);
+    } else {
+      $('a').attr('href', target_url + '?' + global_prm);
+    }
+  }
   console.log(global_prm);
   console.log(target_url);
   })
 });
+
 
 $('.' + className_trial_button).click(function(e) {
   global_btn_position = e.currentTarget.dataset['trial'];
