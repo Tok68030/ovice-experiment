@@ -126,10 +126,8 @@ $(function(){
   console.log(global_prm);
   console.log(target_url);
   })
-})
-</script>
+});
 
-<script>
 $('.' + className_trial_button).click(function(e) {
   global_btn_position = e.currentTarget.dataset['trial'];
   console.log(global_btn_position);
