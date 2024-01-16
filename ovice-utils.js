@@ -1,4 +1,4 @@
-// by Tok
+// by Tok@ovice, 2024
 var global_prm;
 var global_prm_val;
 var global_prf_country = "en";
@@ -45,7 +45,6 @@ function getUserLangByGLwithUX() {
     Http.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         data = JSON.parse(this.responseText);
-        console.log("getbcpAPI return"); console.log(data);
         resolve();
       }
     };
@@ -61,11 +60,11 @@ function getUserLangByGLwithUX() {
 function UXinitialize(){
   var UX_for_AU = document.getElementsByClassName(className_UX_for_AU);
   for (var i = 0; i < UX_for_AU.length; i++) {
-    UX_for_AU[i].style.visibility = 'hidden';
+    UX_for_AU[i].style.display = 'none';
   }
   var UX_for_EN = document.getElementsByClassName(className_UX_for_EN);
   for (var i = 0; i < UX_for_EN.length; i++) {
-    UX_for_EN[i].style.visibility = 'hidden';
+    UX_for_EN[i].style.display = 'none';
   }
 }
 
@@ -75,10 +74,13 @@ function UXcustomizeViaCountry(){
     switch (global_prf_country) {
       case 'EN_AU':
       case 'en-AU':
-        UX_for_AU[i].style.visibility = 'visible';
+      case 'AU':
+      case 'SG':
+      case 'MY':
+        UX_for_AU[i].style.display = 'block';
         break;
       default:
-        UX_for_AU[i].style.visibility = 'hidden';
+        UX_for_AU[i].style.display = 'none';
     }
   }
   var UX_for_EN = document.getElementsByClassName(className_UX_for_EN);
@@ -86,10 +88,11 @@ function UXcustomizeViaCountry(){
     switch (global_prf_country) {
       case 'EN':
       case 'en':
-        UX_for_EN[i].style.visibility = 'visible';
+      case 'US':
+        UX_for_EN[i].style.display = 'block';
         break;
       default:
-        UX_for_EN[i].style.visibility = 'hidden';
+        UX_for_EN[i].style.display = 'none';
     }
   }
 }
@@ -110,27 +113,23 @@ function UXcustomizeViaCountry(){
 })();
 
 $(function(){
-  $('a').click(function() {
-  var target_url = $(this).attr("href");
+    $('a').click(function() {
+    var target_url = $(this).attr("href");
 
-  if (global_prm) {
-    if (global_btn_position) {
-      target_url = target_url + '&lp_type=' + global_btn_position;
+    if (global_prm) {
+      if (global_btn_position) {
+        target_url = target_url + '&lp_type=' + global_btn_position;
+      }
+      if (target_url.indexOf('?') != -1) {
+        $('a').attr('href', target_url + '&' + global_prm);
+      } else {
+        $('a').attr('href', target_url + '?' + global_prm);
+      }
     }
-    if (target_url.indexOf('?') != -1) {
-      $('a').attr('href', target_url + '&' + global_prm);
-    } else {
-      $('a').attr('href', target_url + '?' + global_prm);
-    }
-  }
-  console.log(global_prm);
-  console.log(target_url);
   })
-});
-
+})
 
 $('.' + className_trial_button).click(function(e) {
   global_btn_position = e.currentTarget.dataset['trial'];
   console.log(global_btn_position);
-  $('#experiment-text3').text('position of button: ' + global_btn_position);
 });
