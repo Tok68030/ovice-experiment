@@ -102,12 +102,14 @@ function UXcustomizeViaCountry(){
   global_prm = decodeURIComponent(str);
   global_prm_val = new URLSearchParams(global_prm);
 
-  UXinitialize();
-  if (global_prm_val.has("country")) {
-    global_prf_country = getUserLangByUA();
-    UXcustomizeViaCountry();
-  } else {
-    getUserLangByGLwithUX();
+  if(!window.location.pathname.startsWith("/ja") && !window.location.pathname.startsWith("/ko")) {
+    UXinitialize();
+    if (global_prm_val.has("country")) {
+      global_prf_country = getUserLangByUA();
+      UXcustomizeViaCountry();
+    } else {
+      getUserLangByGLwithUX();
+    }
   }
 
 })();
