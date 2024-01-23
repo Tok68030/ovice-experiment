@@ -3,6 +3,7 @@ var global_prm;
 var global_prm_val;
 var global_prf_country = "en";
 var global_btn_position = "";
+var global_flg_c = "";
 const className_UX_for_AU = "ux_for_au";
 const className_UX_for_EN = "ux_for_en";
 const className_trial_button = "trial_button";
@@ -102,11 +103,19 @@ function UXcustomizeViaCountry(){
   global_prm = decodeURIComponent(str);
   global_prm_val = new URLSearchParams(global_prm);
 
+  if(typeof localStorage !== 'undefined') {
+    var s = localStorage;
+    if (s.getItem("ovicecom_country")) {
+      global_prf_country = s.getItem("ovicecom_country");
+    }
+  }
+
   if(!window.location.pathname.startsWith("/ja") && !window.location.pathname.startsWith("/ko")) {
     UXinitialize();
     if (global_prm_val.has("country")) {
-      global_prf_country = getUserLangByUA();
-      UXcustomizeViaCountry();
+//    global_prf_country = getUserLangByUA();
+      global_prf_country = URLSearchParams.get("country");
+	    UXcustomizeViaCountry();
     } else {
       getUserLangByGLwithUX();
     }
@@ -117,10 +126,11 @@ function UXcustomizeViaCountry(){
 $(function(){
     $('a').click(function() {
     var target_url = $(this).attr("href");
-
     if (global_prm) {
       if (global_btn_position) {
-        target_url = target_url + '&lp_type=' + global_btn_position;
+        var p = window.location.pathname;
+        var c = p.startsWith('/ja') ? 'jp' : (p.startsWith('/ko') ? 'ko' : 'en');
+        global_prm = global_prm + '&lp_type=' + c + '_official_' + window.location.pathname.substring(1) + '_' + global_btn_position;
       }
       if (target_url.indexOf('?') != -1) {
         $('a').attr('href', target_url + '&' + global_prm);
