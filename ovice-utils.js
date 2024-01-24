@@ -105,7 +105,7 @@ function UXcustomizeViaCountry(){
   global_prm_val = new URLSearchParams(global_prm);
 
   if (global_prm_val.has("country")) {
-    global_prf_country = URLSearchParams.get("country");
+    global_prf_country = global_prm_val.get("country");
     global_flg_c = global_flg_ctype.QP;
   } else {
     if(typeof localStorage !== 'undefined') {
@@ -139,19 +139,16 @@ $(function(){
         var s = localStorage;
         s.setItem("ovicecom_country",global_prf_country);
       }
-      console.log("event: beforeunload"); ////////
     });
 });
 $(function(){
   $('a').click(function() {
     var target_url = $(this).attr("href");
     if (global_flg_c == global_flg_ctype.GL || global_flg_c == global_flg_ctype.LS) {
-      if (target_url.indexOf('?') != -1) {
-        if (!global_prm_val.has("country")) {
-          global_prm = global_prm + '&country=' + global_prf_country;
-        }
+      if (global_prm) {
+        global_prm = global_prm + '&country=' + global_prf_country;
       } else {
-        global_prm = global_prm + '?country=' + global_prf_country;
+        global_prm = 'country=' + global_prf_country;
       }
     }
     if (global_prm) {
