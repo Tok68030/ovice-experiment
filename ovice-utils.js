@@ -3,10 +3,12 @@ var global_prm;
 var global_prm_val;
 var global_prf_country = "en";
 var global_btn_position = "";
-var global_flg_c = "";
+var global_flg_ctype = {none:0,QP:1,LS:2,GL:3,XX:9};
+var global_flg_c = global_flg_ctype.none;
 const className_UX_for_AU = "ux_for_au";
 const className_UX_for_EN = "ux_for_en";
-const className_trial_button = "trial_button";
+const className_trial_button = "ux_trial";
+const className_freeplan_button = "ux_freeplan";
 
 function retrieveGETqs() {
 	var query = window.location.search.substring(1);
@@ -52,7 +54,6 @@ function getUserLangByGLwithUX() {
   });
   bdc.then(function(value) {
     global_prf_country = data.countryCode;
-    console.log("country code = "); console.log(global_prf_country);
     UXcustomizeViaCountry();
   });
   }
@@ -100,32 +101,59 @@ function UXcustomizeViaCountry(){
 
 (function(){
   var str = retrieveGETqs();
-  global_prm = decodeURIComponent(str);
+  global_prm = str ? decodeURIComponent(str) : "";
   global_prm_val = new URLSearchParams(global_prm);
 
-  if(typeof localStorage !== 'undefined') {
-    var s = localStorage;
-    if (s.getItem("ovicecom_country")) {
-      global_prf_country = s.getItem("ovicecom_country");
+  if (global_prm_val.has("country")) {
+    global_prf_country = URLSearchParams.get("country");
+    global_flg_c = global_flg_ctype.QP;
+  } else {
+    if(typeof localStorage !== 'undefined') {
+      var s = localStorage;
+      if (s.getItem("ovicecom_country")) {
+        global_prf_country = s.getItem("ovicecom_country");
+        global_flg_c = global_flg_ctype.LS;
+      } else {
+        global_flg_c = global_flg_ctype.GL;
+      }
+    } else {
+      global_prf_country = getUserLangByUA();
+//    global_prf_country = "EN";
+      global_flg_c = global_flg_ctype.XX;
     }
   }
 
   if(!window.location.pathname.startsWith("/ja") && !window.location.pathname.startsWith("/ko")) {
     UXinitialize();
-    if (global_prm_val.has("country")) {
-//    global_prf_country = getUserLangByUA();
-      global_prf_country = URLSearchParams.get("country");
-	    UXcustomizeViaCountry();
-    } else {
+    if (global_flg_c == global_flg_ctype.GL) {
       getUserLangByGLwithUX();
+    } else {
+      UXcustomizeViaCountry();
     }
   }
-
 })();
 
 $(function(){
-    $('a').click(function() {
+    $(window).on('beforeunload', function() {
+      if (global_flg_c == global_flg_ctype.GL || global_flg_c == global_flg_ctype.QP) {
+        var s = localStorage;
+        s.setItem("ovicecom_country",global_prf_country);
+      }
+      console.log("event: beforeunload"); ////////
+    });
+});
+$(function(){
+  $('a').click(function() {
     var target_url = $(this).attr("href");
+    if (global_flg_c == global_flg_ctype.GL || global_flg_c == global_flg_ctype.LS) {
+      if (target_url.indexOf('?') != -1) {
+        if (!global_prm_val.has("country")) {
+          global_prm = global_prm + '&country=' + global_prf_country;
+        }
+      } else {
+        global_prm = global_prm + '?country=' + global_prf_country;
+      }
+    }
     if (global_prm) {
       if (global_btn_position) {
         var p = window.location.pathname;
@@ -139,9 +167,10 @@ $(function(){
       }
     }
   })
-})
-
+});
 $('.' + className_trial_button).click(function(e) {
-  global_btn_position = e.currentTarget.dataset['trial'];
-  console.log(global_btn_position);
+  global_btn_position = e.currentTarget.dataset['position'];
+});
+$('.' + className_freeplan_button).click(function(e) {
+  global_btn_position = e.currentTarget.dataset['position'];
 });
