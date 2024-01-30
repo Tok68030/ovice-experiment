@@ -111,6 +111,7 @@ function UXcustomizeViaCountry(){
       global_prf_country = c;
       global_flg_c = global_flg_ctype.QP;
     }
+  }
   if (global_flg_c !== global_flg_ctype.QP) {
     if(typeof localStorage !== 'undefined') {
       var s = localStorage;
