@@ -105,11 +105,16 @@ function UXcustomizeViaCountry(){
   global_prm_val = new URLSearchParams(global_prm);
 
   if (global_prm_val.has("country")) {
-    c = global_prm_val.get("country");
-    r = new Intl.DisplayNames(['en-us'], {type:'region'});
-    if (r.of(c) !== 'Unknown Region') {
-      global_prf_country = c;
-      global_flg_c = global_flg_ctype.QP;
+    var c = global_prm_val.get("country");
+    const r = new Intl.DisplayNames(['en-us'], {type:'region'});
+    var v;
+    try { v = r.of(c); }
+    catch { v = ""; }
+    finally {
+      if (v !== "" && v !== 'Unknown Region') {
+        global_prf_country = c;
+        global_flg_c = global_flg_ctype.QP;
+      }
     }
   }
   if (global_flg_c !== global_flg_ctype.QP) {
