@@ -1,4 +1,4 @@
-// by Tok@ovice, 2024
+// ovice utils build 007 by Tok@ovice, 2024 
 var global_prm;
 var global_prm_val;
 var global_prf_country = "en";
@@ -11,9 +11,9 @@ const className_trial_button = "ux_trial";
 const className_freeplan_button = "ux_freeplan";
 
 function retrieveGETqs() {
-	var query = window.location.search.substring(1);
-	if (!query) return false;
-	return query;
+  var query = window.location.search.substring(1);
+  if (!query) return false;
+  return query;
 }
 
 function getUserLangByUA() {
@@ -24,21 +24,21 @@ function getUserLangByGLwithUX() {
   const Http = new XMLHttpRequest();
   var bdcApi = "https://api.bigdatacloud.net/data/reverse-geocode-client";
 
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        bdcApi = bdcApi
-          + "?latitude=" + position.coords.latitude
-          + "&longitude=" + position.coords.longitude
-          + "&localityLanguage=en";
-        getbdcApi(bdcApi);
-      },
-      (err) => { getbdcApi(bdcApi); },
-      {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0
-      }
-    );
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      bdcApi = bdcApi
+        + "?latitude=" + position.coords.latitude
+        + "&longitude=" + position.coords.longitude
+        + "&localityLanguage=en";
+      getbdcApi(bdcApi);
+    },
+    (err) => { getbdcApi(bdcApi); },
+    {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0
+    }
+  );
 
   function getbdcApi(bdcApi) {
   var data;
@@ -109,11 +109,18 @@ function UXcustomizeViaCountry(){
     const r = new Intl.DisplayNames(['en-us'], {type:'region'});
     var v;
     try { v = r.of(c); }
-    catch { v = ""; }
+    catch {
+      v = "";
+      global_prm_val.delete("country");
+      global_prm = global_prm_val.toString();
+    }
     finally {
       if (v !== "" && v !== 'Unknown Region') {
         global_prf_country = c;
         global_flg_c = global_flg_ctype.QP;
+      } else {
+        global_prm_val.delete("country");
+        global_prm = global_prm_val.toString();
       }
     }
   }
@@ -132,7 +139,6 @@ function UXcustomizeViaCountry(){
       global_flg_c = global_flg_ctype.XX;
     }
   }
-
   if(!window.location.pathname.startsWith("/ja") && !window.location.pathname.startsWith("/ko")) {
     UXinitialize();
     if (global_flg_c == global_flg_ctype.GL) {
@@ -140,9 +146,11 @@ function UXcustomizeViaCountry(){
     } else {
       UXcustomizeViaCountry();
     }
+  } else {
+    if(window.location.pathname.startsWith("/ja")) {global_prf_country = "JP";}
+    if(window.location.pathname.startsWith("/ko")) {global_prf_country = "KR";}
   }
 })();
-
 $(function(){
     $(window).on('beforeunload', function() {
       if (global_flg_c == global_flg_ctype.GL || global_flg_c == global_flg_ctype.QP) {
