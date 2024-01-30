@@ -105,9 +105,13 @@ function UXcustomizeViaCountry(){
   global_prm_val = new URLSearchParams(global_prm);
 
   if (global_prm_val.has("country")) {
-    global_prf_country = global_prm_val.get("country");
-    global_flg_c = global_flg_ctype.QP;
-  } else {
+    c = global_prm_val.get("country");
+    r = new Intl.DisplayNames(['en-us'], {type:'region'});
+    if (r.of(c) !== 'Unknown Region') {
+      global_prf_country = c;
+      global_flg_c = global_flg_ctype.QP;
+    }
+  if (global_flg_c !== global_flg_ctype.QP) {
     if(typeof localStorage !== 'undefined') {
       var s = localStorage;
       if (s.getItem("ovicecom_country")) {
