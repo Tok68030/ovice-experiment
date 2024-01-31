@@ -1,14 +1,14 @@
-// ovice utils build 007 by Tok@ovice, 2024 
+// ovice utils build 008 by Tok@ovice, 2024 
 var global_prm;
 var global_prm_val;
-var global_prf_country = "en";
-var global_btn_position = "";
+var global_prf_country = 'en';
+var global_btn_position = '';
 var global_flg_ctype = {none:0,QP:1,LS:2,GL:3,XX:9};
 var global_flg_c = global_flg_ctype.none;
-const className_UX_for_AU = "ux_for_au";
-const className_UX_for_EN = "ux_for_en";
-const className_trial_button = "ux_trial";
-const className_freeplan_button = "ux_freeplan";
+const className_UX_for_AU = 'ux_for_au';
+const className_UX_for_EN = 'ux_for_en';
+const className_trial_button = 'ux_trial';
+const className_freeplan_button = 'ux_freeplan';
 
 function retrieveGETqs() {
   var query = window.location.search.substring(1);
@@ -22,14 +22,14 @@ function getUserLangByUA() {
 
 function getUserLangByGLwithUX() {
   const Http = new XMLHttpRequest();
-  var bdcApi = "https://api.bigdatacloud.net/data/reverse-geocode-client";
+  var bdcApi = 'https://api.bigdatacloud.net/data/reverse-geocode-client';
 
   navigator.geolocation.getCurrentPosition(
     (position) => {
       bdcApi = bdcApi
-        + "?latitude=" + position.coords.latitude
-        + "&longitude=" + position.coords.longitude
-        + "&localityLanguage=en";
+        + '?latitude=' + position.coords.latitude
+        + '&longitude=' + position.coords.longitude
+        + '&localityLanguage=en';
       getbdcApi(bdcApi);
     },
     (err) => { getbdcApi(bdcApi); },
@@ -43,7 +43,7 @@ function getUserLangByGLwithUX() {
   function getbdcApi(bdcApi) {
   var data;
   var bdc = new Promise((resolve, reject) => {
-    Http.open("GET", bdcApi);
+    Http.open('GET', bdcApi);
     Http.send();
     Http.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
@@ -101,25 +101,25 @@ function UXcustomizeViaCountry(){
 
 (function(){
   var str = retrieveGETqs();
-  global_prm = str ? decodeURIComponent(str) : "";
+  global_prm = str ? decodeURIComponent(str) : '';
   global_prm_val = new URLSearchParams(global_prm);
 
-  if (global_prm_val.has("country")) {
-    var c = global_prm_val.get("country");
+  if (global_prm_val.has('countrycode')) {
+    var c = global_prm_val.get('countrycode');
     const r = new Intl.DisplayNames(['en-us'], {type:'region'});
     var v;
     try { v = r.of(c); }
     catch {
-      v = "";
-      global_prm_val.delete("country");
+      v = '';
+      global_prm_val.delete('countrycode');
       global_prm = global_prm_val.toString();
     }
     finally {
-      if (v !== "" && v !== 'Unknown Region') {
+      if (v !== '' && v !== 'Unknown Region') {
         global_prf_country = c;
         global_flg_c = global_flg_ctype.QP;
       } else {
-        global_prm_val.delete("country");
+        global_prm_val.delete('countrycode');
         global_prm = global_prm_val.toString();
       }
     }
@@ -127,19 +127,18 @@ function UXcustomizeViaCountry(){
   if (global_flg_c !== global_flg_ctype.QP) {
     if(typeof localStorage !== 'undefined') {
       var s = localStorage;
-      if (s.getItem("ovicecom_country")) {
-        global_prf_country = s.getItem("ovicecom_country");
+      if (s.getItem('ovicecom_countrycode')) {
+        global_prf_country = s.getItem('ovicecom_country');
         global_flg_c = global_flg_ctype.LS;
       } else {
         global_flg_c = global_flg_ctype.GL;
       }
     } else {
       global_prf_country = getUserLangByUA();
-//    global_prf_country = "EN";
       global_flg_c = global_flg_ctype.XX;
     }
   }
-  if(!window.location.pathname.startsWith("/ja") && !window.location.pathname.startsWith("/ko")) {
+  if(!window.location.pathname.startsWith('/ja') && !window.location.pathname.startsWith('/ko')) {
     UXinitialize();
     if (global_flg_c == global_flg_ctype.GL) {
       getUserLangByGLwithUX();
@@ -147,26 +146,26 @@ function UXcustomizeViaCountry(){
       UXcustomizeViaCountry();
     }
   } else {
-    if(window.location.pathname.startsWith("/ja")) {global_prf_country = "JP";}
-    if(window.location.pathname.startsWith("/ko")) {global_prf_country = "KR";}
+    if(window.location.pathname.startsWith('/ja')) {global_prf_country = 'JP';}
+    if(window.location.pathname.startsWith('/ko')) {global_prf_country = 'KR';}
   }
 })();
 $(function(){
     $(window).on('beforeunload', function() {
       if (global_flg_c == global_flg_ctype.GL || global_flg_c == global_flg_ctype.QP) {
         var s = localStorage;
-        s.setItem("ovicecom_country",global_prf_country);
+        s.setItem('ovicecom_countrycode',global_prf_country);
       }
     });
 });
 $(function(){
   $('a').click(function() {
-    var target_url = $(this).attr("href");
+    var target_url = $(this).attr('href');
     if (global_flg_c == global_flg_ctype.GL || global_flg_c == global_flg_ctype.LS) {
       if (global_prm) {
-        global_prm = global_prm + '&country=' + global_prf_country;
+        global_prm = global_prm + '&countrycode=' + global_prf_country;
       } else {
-        global_prm = 'country=' + global_prf_country;
+        global_prm = 'countrycode=' + global_prf_country;
       }
     }
     if (global_prm) {
