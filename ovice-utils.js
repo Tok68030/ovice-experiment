@@ -1,4 +1,4 @@
-// ovice utils build 009 by Tok@ovice, 2024 
+// ovice utils build 010 by Tok@ovice, 2024 
 var global_prm;
 var global_prm_val;
 var global_prf_country = 'en';
@@ -161,7 +161,7 @@ $(function(){
 $(function(){
   $('a').click(function() {
     var target_url = $(this).attr('href');
-    if (target_url !== "#") {
+    if (!target_url.startsWith('#')) {
       if (global_flg_c == global_flg_ctype.GL || global_flg_c == global_flg_ctype.LS) {
         if (global_prm) {
           global_prm = global_prm + '&countrycode=' + global_prf_country;
