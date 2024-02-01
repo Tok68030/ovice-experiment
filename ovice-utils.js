@@ -1,4 +1,4 @@
-// ovice utils build 010 by Tok@ovice, 2024 
+// ovice utils build 011 by Tok@ovice, 2024 
 var global_prm;
 var global_prm_val;
 var global_prf_country = 'en';
@@ -128,7 +128,7 @@ function UXcustomizeViaCountry(){
     if(typeof localStorage !== 'undefined') {
       var s = localStorage;
       if (s.getItem('ovicecom_countrycode')) {
-        global_prf_country = s.getItem('ovicecom_country');
+        global_prf_country = s.getItem('ovicecom_countrycode');
         global_flg_c = global_flg_ctype.LS;
       } else {
         global_flg_c = global_flg_ctype.GL;
