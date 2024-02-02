@@ -161,9 +161,9 @@ $(function(){
 $(function(){
   $('a').click(function() {
     var target_url = $(this).attr('href');
-    if (!target_url.includes('#') && !target_url.startsWith('?') && !target_url.includes('countrycode') && !gobal_prm.includes('countrycode')) {
+    if (!target_url.includes('#') && !target_url.startsWith('?') && !target_url.includes('countrycode')) {
       if (global_flg_c == global_flg_ctype.GL || global_flg_c == global_flg_ctype.LS) {
-        if (global_prm) {
+        if (global_prm && !global_prm.includes('countrycode')) {
           global_prm = global_prm + '&countrycode=' + global_prf_country;
         } else {
           global_prm = 'countrycode=' + global_prf_country;
