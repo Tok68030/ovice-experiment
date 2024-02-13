@@ -1,4 +1,4 @@
-// ovice utils build 017 by Tok@ovice, 2024 
+// ovice utils build 018 by Tok@ovice, 2024 
 var global_prm;
 var global_prm_val;
 var global_prf_country = 'en';
@@ -82,6 +82,7 @@ function UXcustomizeViaCountry(){
       case 'EN_AU':
       case 'en-AU':
       case 'AU':
+      case 'NZ':
       case 'SG':
       case 'MY':
         UX_for_APAC[i].style.display = 'inline';
@@ -95,6 +96,7 @@ function UXcustomizeViaCountry(){
     switch (global_prf_country) {
       case 'EN_AU':
       case 'en-AU':
+      case 'AU':
         UX_for_AU[i].style.display = 'inline';
         break;
       default:
