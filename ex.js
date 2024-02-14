@@ -10,9 +10,8 @@
       var r = document.referrer;
       if (v === 1) {
         ls.setItem('ovicecom_sFirstRef', r);
-      } else {
-        ls.setItem('ovicecom_sLastRef', r);
       }
+      ls.setItem('ovicecom_sLastRef', r);
     }
   }
 })();
