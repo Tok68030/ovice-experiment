@@ -95,5 +95,8 @@ function attr(d) {
       console.log("r = " + r);
       ls.setItem('ovicecom_attribution', attr(r));
     }
+  } else {
+    var p = global_prm_val.get('source');
+    if (p !== '') {ls.setItem('ovicecom_attribution', p);}
   }
 })();
