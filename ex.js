@@ -72,11 +72,11 @@ function attr(d) {
   global_prm = str ? decodeURIComponent(str) : '';
   global_prm_val = new URLSearchParams(global_prm);
 
-
   if ((typeof sessionStorage !== 'undefined') & (typeof localStorage !== 'undefined')) {
     var ls = localStorage;
     var ss = sessionStorage;
     var r = document.referrer;
+    if (r === '') {r = 'direct';}
     ls.setItem('ovicecom_cPages', Number(ls.getItem('ovicecom_cPages')) + 1);
     if(ss.getItem('ovicecom_fEntry') === null) {
       ss.setItem('ovicecom_fEntry', 1);
@@ -87,16 +87,11 @@ function attr(d) {
       }
     }
     ls.setItem('ovicecom_sLastRef', r);
-  }
-  if (global_prm !== '') {
-    if (r === '') {
-      ls.setItem('ovicecom_attribution', 'direct');
-    } else {
-      console.log("r = " + r);
+    if (global_prm === '') {
       ls.setItem('ovicecom_attribution', attr(r));
+    } else {
+      var p = global_prm_val.get('source');
+      if (p !== '') {ls.setItem('ovicecom_attribution', p);}
     }
-  } else {
-    var p = global_prm_val.get('source');
-    if (p !== '') {ls.setItem('ovicecom_attribution', p);}
   }
 })();
