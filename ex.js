@@ -86,6 +86,8 @@ function attr(d) {
         ls.setItem('ovicecom_sFirstRef', r);
       }
       ls.setItem('ovicecom_sLastRef', r);
+      var t = new Date();
+      ls.setItem('ovicecom_nLastTime', t.getTime());
     }
     if (global_prm === '') {
       ls.setItem('ovicecom_attribution', attr(r));
