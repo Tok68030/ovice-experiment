@@ -1,4 +1,4 @@
-// ovice utils build 020 by Tok@ovice, 2024 
+// ovice utils build 021 by Tok@ovice, 2024 
 var global_prm;
 var global_prm_val;
 var global_prf_country = 'en';
@@ -117,7 +117,7 @@ function UXcustomizeViaCountry(){
   }
 }
 
-function attr(d) {
+function checkAttribution(d) {
   const refdata = `[
     {"domain": "ovice.", "ref": "ovice"},
     {"domain": "flexergylab.com", "ref": "ovice"},
@@ -248,7 +248,7 @@ function attr(d) {
       ls.setItem('ovicecom_nLastTime', t.getTime());
     }
     if (global_prm === '') {
-      ls.setItem('ovicecom_attribution', attr(r));
+      ls.setItem('ovicecom_attribution', checkAttribution(r));
     } else {
       var p = global_prm_val.get('source');
       if (p !== null) {
