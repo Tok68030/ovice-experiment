@@ -1,11 +1,10 @@
-// ovice utils build 019 by Tok@ovice, 2024 
+// ovice utils build 020 by Tok@ovice, 2024 
 var global_prm;
 var global_prm_val;
 var global_prf_country = 'en';
 var global_btn_position = '';
 var global_flg_ctype = {none:0,QP:1,LS:2,GL:3,XX:9};
 var global_flg_c = global_flg_ctype.none;
-var global_attribution = '';
 const className_UX_for_APAC = 'ux_for_apac';
 const className_UX_for_AU = 'ux_for_au';
 const className_UX_for_EN = 'ux_for_en';
@@ -250,12 +249,10 @@ function attr(d) {
     }
     if (global_prm === '') {
       ls.setItem('ovicecom_attribution', attr(r));
-      global_attribution = r;
     } else {
       var p = global_prm_val.get('source');
       if (p !== null) {
         ls.setItem('ovicecom_attribution', p);
-        global_attribution = p;
       }
     }
   }
@@ -274,10 +271,19 @@ $(function(){
     var target_url = $(this).attr('href');
     if (!target_url.startsWith('#') && !target_url.startsWith('?') && !target_url.includes('countrycode')) {
       if (global_flg_c == global_flg_ctype.GL || global_flg_c == global_flg_ctype.LS) {
+
+        var at = '';
+        if(typeof localStorage !== 'undefined') {
+          var s = localStorage;
+          if (s.getItem('ovicecom_attribution')) {
+            at = s.getItem('ovicecom_attribution');
+          }
+        }
+
         if (global_prm && !global_prm.includes('countrycode')) {
-          global_prm = global_prm + '&countrycode=' + global_prf_country + (global_attribution !== '') ? '&attribution=' + global_attribution : '';
+          global_prm = global_prm + '&countrycode=' + global_prf_country + (at !== '') ? '&attribution=' + at : '';
         } else {
-          global_prm = 'countrycode=' + global_prf_country + (global_attribution !== '') ? '&attribution=' + global_attribution : '';
+          global_prm = 'countrycode=' + global_prf_country + (at !== '') ? '&attribution=' + at : '';
         }
       }
       if (global_prm) {
