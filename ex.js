@@ -85,8 +85,8 @@ function attr(d) {
       if (v === 0) {
         ls.setItem('ovicecom_sFirstRef', r);
       }
+      ls.setItem('ovicecom_sLastRef', r);
     }
-    ls.setItem('ovicecom_sLastRef', r);
     if (global_prm === '') {
       ls.setItem('ovicecom_attribution', attr(r));
     } else {
