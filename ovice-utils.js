@@ -1,4 +1,4 @@
-// ovice utils build 021 by Tok@ovice, 2024 
+// ovice utils build 022 by Tok@ovice, 2024 
 var global_prm;
 var global_prm_val;
 var global_prf_country = 'en';
@@ -281,9 +281,9 @@ $(function(){
         }
 
         if (global_prm && !global_prm.includes('countrycode')) {
-          global_prm = global_prm + '&countrycode=' + global_prf_country + (at !== '') ? '&attribution=' + at : '';
+          global_prm = global_prm + '&countrycode=' + global_prf_country + ((at !== '') ? ('&attribution=' + at) : '');
         } else {
-          global_prm = 'countrycode=' + global_prf_country + (at !== '') ? '&attribution=' + at : '';
+          global_prm = 'countrycode=' + global_prf_country + ((at !== '') ? ('&attribution=' + at) : '');
         }
       }
       if (global_prm) {
