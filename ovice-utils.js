@@ -1,4 +1,4 @@
-// ovice utils build 023 by Tok@ovice, 2024 
+// ovice utils build 024 by Tok@ovice, 2024 
 var global_prm;
 var global_prm_val;
 var global_prf_country = 'en';
@@ -282,7 +282,7 @@ function checkAttribution(d) {
       ls.setItem('ovicecom_nLastTime', t.getTime());
     }
     if (global_prm === '') {
-      ls.setItem('ovicecom_attribution', checkAttribution(r));
+      ls.setItem('ovicecom_attribution', (r === 'direct' ? r : checkAttribution(r)));
     } else {
       var p = global_prm_val.get('source');
       if (p !== null) {
