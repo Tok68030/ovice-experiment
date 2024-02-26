@@ -1,4 +1,4 @@
-// ovice utils build 024 by Tok@ovice, 2024 
+// ovice utils build 025 by Tok@ovice, 2024 
 var global_prm;
 var global_prm_val;
 var global_prf_country = 'en';
@@ -97,8 +97,6 @@ function UXcustomizeViaCountry(){
       case 'MY':
         UX_for_APAC[i].style.display = 'inline';
         break;
-      default:
-        UX_for_APAC[i].style.display = 'none';
     }
   }
   var UX_for_AU = document.getElementsByClassName(className_UX_for_AU);
@@ -109,8 +107,6 @@ function UXcustomizeViaCountry(){
       case 'AU':
         UX_for_AU[i].style.display = 'inline';
         break;
-      default:
-        UX_for_AU[i].style.display = 'none';
     }
   }
   var UX_for_EN = document.getElementsByClassName(className_UX_for_EN);
@@ -121,8 +117,6 @@ function UXcustomizeViaCountry(){
       case 'US':
         UX_for_EN[i].style.display = 'inline';
         break;
-      default:
-        UX_for_EN[i].style.display = 'none';
     }
   }
   var UX_for_JA = document.getElementsByClassName(className_UX_for_JA);
@@ -133,8 +127,6 @@ function UXcustomizeViaCountry(){
       case 'JP':
         UX_for_JA[i].style.display = 'inline';
         break;
-      default:
-        UX_for_JA[i].style.display = 'none';
     }
   }
   var UX_for_KO = document.getElementsByClassName(className_UX_for_KO);
@@ -145,8 +137,6 @@ function UXcustomizeViaCountry(){
       case 'KR':
         UX_for_JA[i].style.display = 'inline';
         break;
-      default:
-        UX_for_JA[i].style.display = 'none';
     }
   }
 }
