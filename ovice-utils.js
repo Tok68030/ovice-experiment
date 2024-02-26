@@ -1,4 +1,4 @@
-// ovice utils build 022 by Tok@ovice, 2024 
+// ovice utils build 023 by Tok@ovice, 2024 
 var global_prm;
 var global_prm_val;
 var global_prf_country = 'en';
@@ -8,6 +8,8 @@ var global_flg_c = global_flg_ctype.none;
 const className_UX_for_APAC = 'ux_for_apac';
 const className_UX_for_AU = 'ux_for_au';
 const className_UX_for_EN = 'ux_for_en';
+const className_UX_for_JA = 'ux_for_ja';
+const className_UX_for_KO = 'ux_for_ko';
 const className_trial_button = 'ux_trial';
 const className_freeplan_button = 'ux_freeplan';
 
@@ -73,6 +75,14 @@ function UXinitialize(){
   for (var i = 0; i < UX_for_EN.length; i++) {
     UX_for_EN[i].style.display = 'none';
   }
+  var UX_for_JA = document.getElementsByClassName(className_UX_for_JA);
+  for (var i = 0; i < UX_for_JA.length; i++) {
+    UX_for_JA[i].style.display = 'none';
+  }
+  var UX_for_KO = document.getElementsByClassName(className_UX_for_KO);
+  for (var i = 0; i < UX_for_KO.length; i++) {
+    UX_for_KO[i].style.display = 'none';
+  }
 }
 
 function UXcustomizeViaCountry(){
@@ -113,6 +123,30 @@ function UXcustomizeViaCountry(){
         break;
       default:
         UX_for_EN[i].style.display = 'none';
+    }
+  }
+  var UX_for_JA = document.getElementsByClassName(className_UX_for_JA);
+  for (var i = 0; i < UX_for_JA.length; i++) {
+    switch (global_prf_country) {
+      case 'JA':
+      case 'ja':
+      case 'JP':
+        UX_for_JA[i].style.display = 'inline';
+        break;
+      default:
+        UX_for_JA[i].style.display = 'none';
+    }
+  }
+  var UX_for_KO = document.getElementsByClassName(className_UX_for_KO);
+  for (var i = 0; i < UX_for_KO.length; i++) {
+    switch (global_prf_country) {
+      case 'KO':
+      case 'ko':
+      case 'KR':
+        UX_for_JA[i].style.display = 'inline';
+        break;
+      default:
+        UX_for_JA[i].style.display = 'none';
     }
   }
 }
@@ -280,10 +314,15 @@ $(function(){
           }
         }
 
+//        if (global_prm && !global_prm.includes('countrycode')) {
+//          global_prm = global_prm + '&countrycode=' + global_prf_country + ((at !== '') ? ('&attribution=' + at) : '');
+//        } else {
+//          global_prm = 'countrycode=' + global_prf_country + ((at !== '') ? ('&attribution=' + at) : '');
+//        }
         if (global_prm && !global_prm.includes('countrycode')) {
-          global_prm = global_prm + '&countrycode=' + global_prf_country + ((at !== '') ? ('&attribution=' + at) : '');
+          global_prm = global_prm + '&countrycode=' + global_prf_country;
         } else {
-          global_prm = 'countrycode=' + global_prf_country + ((at !== '') ? ('&attribution=' + at) : '');
+          global_prm = 'countrycode=' + global_prf_country;
         }
       }
       if (global_prm) {
